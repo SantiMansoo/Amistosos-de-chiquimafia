@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prode de amistosos de Argentina hasta el Mundial 2030 | ¿Contra quién juega Argentina?</title>
+<meta name="description" content="Jugá gratis al prode de los amistosos de la Selección Argentina: adiviná contra qué países juega en cada fecha FIFA hasta el Mundial 2030 y sumá puntos.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿Contra quién juega Argentina? Prode de amistosos hasta 2030">
+<meta property="og:description" content="Adiviná los rivales de la Selección en cada fecha FIFA y compará tu prode con amigos.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --celeste:#74ACDF; --celeste-soft:#DCEBF8; --sol:#F6B40E; --rojo:#C8323C; --verde:#2E8B57;
+  --bg:#F7FAFD; --card:#FFFFFF; --line:#C9DCEE; --tinta:#13294B; --muted:#4F6684;
+  --display:"Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+  --body:"Barlow", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1B2E; --card:#152741; --line:#2A4466; --tinta:#EAF2FB; --muted:#9DB4CF; --celeste-soft:#1C3556;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1B2E; --card:#152741; --line:#2A4466; --tinta:#EAF2FB; --muted:#9DB4CF; --celeste-soft:#1C3556;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tinta);font:400 17px/1.5 var(--body)}
+
+.hero{position:relative;overflow:hidden;color:#13294B;
+  background:repeating-linear-gradient(90deg,var(--celeste) 0 64px,#fff 64px 128px);
+  padding:52px 20px 40px}
+.hero-inner{position:relative;max-width:900px;margin:0 auto}
+.sol{position:absolute;right:-30px;top:-40px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,var(--sol) 0 38%,transparent 39%),
+             repeating-conic-gradient(var(--sol) 0 6deg,transparent 6deg 15deg)}
+@media (prefers-reduced-motion:no-preference){.sol{animation:gira 40s linear infinite}@keyframes gira{to{transform:rotate(360deg)}}}
+h1{font-family:var(--display);font-weight:900;margin:0;font-size:clamp(3rem,11vw,7rem);line-height:1}
+h1 span{display:inline-block;background:#fff;padding:.04em .14em 0;margin-bottom:.08em}
+.hero p{max-width:40ch;margin:20px 0 0;background:#13294B;color:#fff;display:inline-block;padding:10px 14px;font-weight:500}
+
+.board{display:flex;flex-wrap:wrap;gap:0;margin-top:26px;background:#13294B;color:#fff;border-radius:6px;overflow:hidden;max-width:620px}
+.board div{flex:1 1 140px;padding:12px 16px;border-right:1px solid rgba(255,255,255,.15)}
+.board div:last-child{border-right:0}
+.board b{display:block;font-family:var(--display);font-size:2.6rem;line-height:1;color:var(--sol)}
+.board span{font-size:.9rem;opacity:.85}
+
+main{max-width:900px;margin:0 auto;padding:32px 20px 80px}
+h2{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1;margin:0 0 6px}
+.hint{color:var(--muted);margin:0 0 16px;max-width:64ch}
+.rules{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin:0 0 32px}
+.rule{border:2px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:.95rem}
+.rule b{font-family:var(--display);font-size:1.6rem;display:block;line-height:1}
+
+.year{font-family:var(--display);font-weight:900;font-size:3.2rem;line-height:1;margin:34px 0 10px;color:var(--celeste)}
+details.win{background:var(--card);border:2px solid var(--line);border-left:8px solid var(--line);border-radius:4px 10px 10px 4px;margin-bottom:10px}
+details.win.played{border-left-color:var(--celeste)}
+details.win.next{border-left-color:var(--sol)}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;flex-wrap:wrap}
+summary::-webkit-details-marker{display:none}
+summary .name{font-family:var(--display);font-weight:700;font-size:1.6rem;line-height:1;flex:1 1 auto}
+summary .mini{font-size:.95rem;color:var(--muted)}
+summary .wp{font-family:var(--display);font-weight:900;font-size:1.6rem;min-width:2.5ch;text-align:right}
+summary::after{content:"+";font-weight:700;font-size:1.4rem;color:var(--muted);width:1ch}
+details[open] summary::after{content:"−"}
+.tag{font-size:.8rem;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--celeste-soft)}
+.next .tag{background:var(--sol);color:#13294B}
+
+.body{padding:0 16px 16px}
+.ctrl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;font-size:.95rem;color:var(--muted)}
+.stepper{display:inline-flex;align-items:center;border:2px solid var(--line);border-radius:6px;overflow:hidden}
+.stepper button{border:0;background:var(--celeste-soft);color:var(--tinta);min-width:40px;min-height:38px;font:700 1.1rem var(--body);cursor:pointer}
+.stepper button:disabled{opacity:.4;cursor:not-allowed}
+.stepper span{min-width:40px;text-align:center;font-family:var(--display);font-size:1.4rem;font-weight:700;color:var(--tinta)}
+
+.slots{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.slot{border:2px solid var(--line);border-radius:8px;padding:12px;position:relative}
+.slot.hit{border-color:var(--sol);background:color-mix(in srgb,var(--sol) 14%,var(--card))}
+.slot.half{border-color:var(--celeste)}
+.slot.miss{border-color:color-mix(in srgb,var(--rojo) 45%,var(--line))}
+.slot h3{margin:0 0 8px;font-size:.95rem;font-weight:700;display:flex;justify-content:space-between}
+.res{font-family:var(--display);font-size:1.2rem}
+.field{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.field:last-child{margin-bottom:0}
+.field .fl{font-size:1.5rem;width:1.6em;text-align:center;flex:none}
+.field label{display:block;font-size:.8rem;color:var(--muted);font-weight:500}
+.field .in{flex:1;min-width:0}
+input[type=text]{width:100%;font:inherit;color:var(--tinta);background:var(--bg);border:2px solid var(--line);border-radius:6px;padding:8px 10px;min-height:42px}
+input:disabled{opacity:.75;border-style:dashed}
+input:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--sol);outline-offset:2px}
+.empty0{color:var(--muted);font-size:.95rem}
+.del{background:none;border:0;color:var(--rojo);font:500 .9rem var(--body);cursor:pointer;padding:6px 0;text-decoration:underline}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;border-top:2px solid var(--line);padding-top:20px}
+.btn{font:700 1rem var(--body);border:0;border-radius:6px;padding:11px 18px;min-height:46px;cursor:pointer;background:var(--tinta);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--tinta);border:2px solid var(--line)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#13294B;color:#fff;padding:10px 16px;border-radius:6px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="sol" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1><span>¿Contra quién</span><br><span>juega Argentina?</span></h1>
+    <p>Tu prode personal de todos los amistosos hasta el Mundial 2030. Tirá tus rivales ahora y sumá puntos a medida que se confirman.</p>
+    <div class="board" aria-live="polite">
+      <div><b id="sPts">0</b><span>puntos</span></div>
+      <div><b id="sHits">0</b><span>rivales clavados</span></div>
+      <div><b id="sFill">0/0</b><span>pronósticos cargados</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <h2>Cómo se suma</h2>
+  <div class="rules">
+    <div class="rule"><b>3 pts</b>Rival exacto en el partido exacto</div>
+    <div class="rule"><b>1 pt</b>Rival correcto pero en otro partido de esa fecha</div>
+    <div class="rule"><b>+2 pts</b>Pleno: todos los rivales de la fecha en orden</div>
+  </div>
+  <p class="hint">Escribí cualquier país del mundo. Cuando se confirme un rival, cargalo en "Rival real" y tu pronóstico de ese partido queda cerrado. Ajustá la cantidad de partidos de cada fecha si se juegan más o menos.</p>
+
+  <div id="windows"></div>
+
+  <div class="actions">
+    <button class="btn" id="share">Copiar mi prode</button>
+    <button class="btn ghost" id="addWin">Agregar fecha extra</button>
+    <button class="btn ghost" id="reset">Empezar de cero</button>
+  </div>
+</main>
+
+<datalist id="paises"></datalist>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const RAW = "Afganistán|AF;Albania|AL;Alemania|DE;Andorra|AD;Angola|AO;Anguila|AI;Antigua y Barbuda|AG;Arabia Saudita|SA;Argelia|DZ;Armenia|AM;Aruba|AW;Australia|AU;Austria|AT;Azerbaiyán|AZ;Bahamas|BS;Bangladés|BD;Barbados|BB;Baréin|BH;Bélgica|BE;Belice|BZ;Benín|BJ;Bermudas|BM;Bielorrusia|BY;Bolivia|BO;Bosnia y Herzegovina|BA;Botsuana|BW;Brasil|BR;Brunéi|BN;Bulgaria|BG;Burkina Faso|BF;Burundi|BI;Bután|BT;Cabo Verde|CV;Camboya|KH;Camerún|CM;Canadá|CA;Catar|QA;Chad|TD;Chile|CL;China|CN;Chipre|CY;Colombia|CO;Comoras|KM;Congo|CG;Corea del Norte|KP;Corea del Sur|KR;Costa de Marfil|CI;Costa Rica|CR;Croacia|HR;Cuba|CU;Curazao|CW;Dinamarca|DK;Dominica|DM;Ecuador|EC;Egipto|EG;El Salvador|SV;Emiratos Árabes Unidos|AE;Eritrea|ER;Escocia|gb-sct;Eslovaquia|SK;Eslovenia|SI;España|ES;Estados Unidos|US;Estonia|EE;Esuatini|SZ;Etiopía|ET;Filipinas|PH;Finlandia|FI;Fiyi|FJ;Francia|FR;Gabón|GA;Gales|gb-wls;Gambia|GM;Georgia|GE;Ghana|GH;Gibraltar|GI;Granada|GD;Grecia|GR;Groenlandia|GL;Guam|GU;Guatemala|GT;Guinea|GN;Guinea Ecuatorial|GQ;Guinea-Bisáu|GW;Guyana|GY;Haití|HT;Honduras|HN;Hong Kong|HK;Hungría|HU;India|IN;Indonesia|ID;Inglaterra|gb-eng;Irak|IQ;Irán|IR;Irlanda|IE;Irlanda del Norte|gb-nir;Islandia|IS;Islas Caimán|KY;Islas Cook|CK;Islas Feroe|FO;Islas Marianas del Norte|MP;Islas Marshall|MH;Islas Salomón|SB;Islas Turcas y Caicos|TC;Islas Vírgenes Británicas|VG;Islas Vírgenes de EE.UU.|VI;Israel|IL;Italia|IT;Jamaica|JM;Japón|JP;Jordania|JO;Kazajistán|KZ;Kenia|KE;Kirguistán|KG;Kiribati|KI;Kosovo|XK;Kuwait|KW;Laos|LA;Lesoto|LS;Letonia|LV;Líbano|LB;Liberia|LR;Libia|LY;Liechtenstein|LI;Lituania|LT;Luxemburgo|LU;Macao|MO;Macedonia del Norte|MK;Madagascar|MG;Malasia|MY;Malaui|MW;Maldivas|MV;Malí|ML;Malta|MT;Marruecos|MA;Mauricio|MU;Mauritania|MR;México|MX;Micronesia|FM;Moldavia|MD;Mónaco|MC;Mongolia|MN;Montenegro|ME;Montserrat|MS;Mozambique|MZ;Myanmar|MM;Namibia|NA;Nauru|NR;Nepal|NP;Nicaragua|NI;Níger|NE;Nigeria|NG;Noruega|NO;Nueva Caledonia|NC;Nueva Zelanda|NZ;Omán|OM;Países Bajos|NL;Pakistán|PK;Palaos|PW;Palestina|PS;Panamá|PA;Papúa Nueva Guinea|PG;Paraguay|PY;Perú|PE;Polonia|PL;Portugal|PT;Puerto Rico|PR;Reino Unido|GB;República Centroafricana|CF;República Checa|CZ;República Democrática del Congo|CD;República Dominicana|DO;Ruanda|RW;Rumania|RO;Rusia|RU;Samoa|WS;Samoa Americana|AS;San Cristóbal y Nieves|KN;San Marino|SM;San Vicente y las Granadinas|VC;Santa Lucía|LC;Santo Tomé y Príncipe|ST;Senegal|SN;Serbia|RS;Seychelles|SC;Sierra Leona|SL;Singapur|SG;Siria|SY;Somalia|SO;Sri Lanka|LK;Sudáfrica|ZA;Sudán|SD;Sudán del Sur|SS;Suecia|SE;Suiza|CH;Surinam|SR;Tahití|PF;Tailandia|TH;Taiwán|TW;Tanzania|TZ;Tayikistán|TJ;Timor Oriental|TL;Togo|TG;Tonga|TO;Trinidad y Tobago|TT;Túnez|TN;Turkmenistán|TM;Turquía|TR;Tuvalu|TV;Ucrania|UA;Uganda|UG;Uruguay|UY;Uzbekistán|UZ;Vanuatu|VU;Vaticano|VA;Venezuela|VE;Vietnam|VN;Yemen|YE;Yibuti|DJ;Zambia|ZM;Zimbabue|ZW";
+const COUNTRIES = RAW.split(";").map(s => s.split("|"));
+const norm = s => (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/\s+/g," ").trim();
+const BY = {}; COUNTRIES.forEach(([n,c]) => BY[norm(n)] = [n,c]);
+const ALIAS = {"eeuu":"Estados Unidos","ee.uu.":"Estados Unidos","usa":"Estados Unidos","holanda":"Países Bajos","qatar":"Catar","chequia":"República Checa","rep. checa":"República Checa","emiratos":"Emiratos Árabes Unidos","corea":"Corea del Sur","rd congo":"República Democrática del Congo","republica dominicana":"República Dominicana","inglaterra":"Inglaterra","escocia":"Escocia","bosnia":"Bosnia y Herzegovina","macedonia":"Macedonia del Norte","costa de marfil":"Costa de Marfil","sudafrica":"Sudáfrica","kenya":"Kenia","bahrein":"Baréin","taipei":"Taiwán","china taipei":"Taiwán","iraq":"Irak","iran":"Irán","jamaica":"Jamaica"};
+document.getElementById("paises").innerHTML = COUNTRIES.map(([n]) => `<option value="${n}">`).join("");
+
+const SUB = {"gb-eng":"🏴\u{E0067}\u{E0062}\u{E0065}\u{E006E}\u{E0067}\u{E007F}","gb-sct":"🏴\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E007F}","gb-wls":"🏴\u{E0067}\u{E0062}\u{E0077}\u{E006C}\u{E0073}\u{E007F}","gb-nir":"🇬🇧"};
+function flagOf(name){
+  if(!name) return "";
+  const hit = BY[norm(name)]; if(!hit) return "🏳️";
+  const code = hit[1]; if(SUB[code]) return SUB[code];
+  return code.toUpperCase().replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt(0)));
+}
+function canon(v){
+  const n = norm(v); if(!n) return "";
+  if(ALIAS[n]) return ALIAS[n];
+  if(BY[n]) return BY[n][0];
+  return v.trim().replace(/^\p{L}/u, c => c.toUpperCase());
+}
+const esc = s => String(s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+
+/* Fechas FIFA hasta el Mundial 2030 */
+const MES = {3:"Marzo",6:"Junio",9:"Septiembre",10:"Octubre",11:"Noviembre"};
+function defaultWindows(){
+  const out = [], list = [[2026,10],[2026,11]];
+  for (let y=2027; y<=2029; y++) [3,6,9,10,11].forEach(m => list.push([y,m]));
+  list.push([2030,3],[2030,6]);
+  list.forEach(([y,m]) => out.push({id:`${y}-${m}`, y, m, label:`${MES[m]} ${y}`, n:2, picks:[], actual:[]}));
+  return out;
+}
+const KEY = "prode-arg-2030-v1";
+let state;
+try { state = JSON.parse(localStorage.getItem(KEY)); } catch(e) {}
+if (!state || !Array.isArray(state.windows)) state = { windows: defaultWindows() };
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
+const openSet = new Set();
+
+function scoreWin(w){
+  let pts=0, hits=0; const res=[];
+  const act = w.actual.slice(0,w.n);
+  for (let i=0;i<w.n;i++){
+    const p = norm(w.picks[i]), a = norm(act[i]);
+    if (!a){ res.push(null); continue; }
+    if (p && p===a){ pts+=3; hits++; res.push("hit"); }
+    else if (p && act.some(x => norm(x)===p)){ pts+=1; res.push("half"); }
+    else res.push("miss");
+  }
+  const full = w.n>0 && act.length>=w.n && act.slice(0,w.n).every(Boolean);
+  if (full && hits===w.n) pts+=2;
+  return {pts, hits, res, full, any: act.some(Boolean)};
+}
+
+function render(){
+  let tPts=0, tHits=0, filled=0, total=0, nextFound=false, html="", lastYear=null;
+  state.windows.forEach((w, wi) => {
+    const s = scoreWin(w);
+    tPts+=s.pts; tHits+=s.hits; total+=w.n;
+    filled += w.picks.slice(0,w.n).filter(Boolean).length;
+    let cls = "", tag = "";
+    if (s.full){ cls="played"; tag="Jugada"; }
+    else if (!nextFound){ cls="next"; tag = s.any ? "En juego" : "Próxima"; nextFound=true; if(!openSet.size) openSet.add(w.id); }
+    const open = openSet.has(w.id);
+    if (w.y !== lastYear){ html += `<div class="year">${w.y}</div>`; lastYear = w.y; }
+    const myPicks = w.picks.slice(0,w.n).filter(Boolean).map(flagOf).join(" ");
+    html += `<details class="win ${cls}" data-w="${wi}" ${open?"open":""}>
+      <summary><span class="name">${esc(w.label)}</span>
+        ${tag?`<span class="tag">${tag}</span>`:""}
+        <span class="mini" aria-label="Tus pronósticos">${myPicks}</span>
+        <span class="wp" title="Puntos de esta fecha">${s.any? s.pts : ""}</span>
+      </summary>
+      <div class="body">
+        <div class="ctrl">Partidos en esta fecha
+          <span class="stepper">
+            <button data-step="-1" data-w="${wi}" ${w.n<=0?"disabled":""} aria-label="Quitar un partido">−</button>
+            <span>${w.n}</span>
+            <button data-step="1" data-w="${wi}" ${w.n>=5?"disabled":""} aria-label="Agregar un partido">+</button>
+          </span>
+          ${w.custom?`<button class="del" data-delwin="${wi}">Borrar esta fecha</button>`:""}
+        </div>
+        ${w.n===0 ? `<p class="empty0">Sin partidos. Si al final se juega algo, sumalos con el +.</p>` :
+        `<div class="slots">${Array.from({length:w.n},(_,i)=>{
+          const p=w.picks[i]||"", a=w.actual[i]||"", r=s.res[i];
+          const badge = r==="hit"?"+3":r==="half"?"+1":r==="miss"?"0":"";
+          return `<div class="slot ${r||""}">
+            <h3><span>Partido ${i+1}</span><span class="res">${badge}</span></h3>
+            <div class="field"><span class="fl">${flagOf(p)||"❔"}</span>
+              <div class="in"><label for="p-${wi}-${i}">Tu pronóstico</label>
+              <input type="text" list="paises" id="p-${wi}-${i}" data-kind="picks" data-w="${wi}" data-i="${i}" value="${esc(p)}" placeholder="Cualquier país" autocomplete="off" ${a?"disabled":""}></div></div>
+            <div class="field"><span class="fl">${flagOf(a)||"·"}</span>
+              <div class="in"><label for="a-${wi}-${i}">Rival real</label>
+              <input type="text" list="paises" id="a-${wi}-${i}" data-kind="actual" data-w="${wi}" data-i="${i}" value="${esc(a)}" placeholder="Cuando se confirme" autocomplete="off"></div></div>
+          </div>`;}).join("")}</div>`}
+      </div>
+    </details>`;
+  });
+  document.getElementById("windows").innerHTML = html;
+  document.getElementById("sPts").textContent = tPts;
+  document.getElementById("sHits").textContent = tHits;
+  document.getElementById("sFill").textContent = `${filled}/${total}`;
+}
+
+function commit(el){
+  const w = state.windows[+el.dataset.w], i = +el.dataset.i, kind = el.dataset.kind;
+  const v = canon(el.value);
+  if ((w[kind][i]||"") === v) return;
+  w[kind][i] = v; save();
+  const focusId = el.id; render();
+  const again = document.getElementById(focusId); if (again && document.activeElement===document.body) {}
+}
+document.addEventListener("input", e => {
+  const el = e.target; if (!el.dataset.kind) return;
+  if (BY[norm(el.value)]) commit(el);   // eligió de la lista
+});
+document.addEventListener("change", e => { if (e.target.dataset.kind) commit(e.target); });
+document.addEventListener("keydown", e => { if (e.key==="Enter" && e.target.dataset.kind) e.target.blur(); });
+document.addEventListener("toggle", e => {
+  const d = e.target; if (!d.matches || !d.matches("details.win")) return;
+  const id = state.windows[+d.dataset.w].id;
+  d.open ? openSet.add(id) : openSet.delete(id);
+}, true);
+document.addEventListener("click", e => {
+  const t = e.target.closest("button"); if (!t) return;
+  if (t.dataset.step){
+    const w = state.windows[+t.dataset.w];
+    w.n = Math.max(0, Math.min(5, w.n + +t.dataset.step));
+    openSet.add(w.id); save(); render();
+  } else if (t.dataset.delwin){
+    const w = state.windows[+t.dataset.delwin];
+    if (confirm(`¿Borrar "${w.label}"?`)){ state.windows.splice(+t.dataset.delwin,1); save(); render(); }
+  }
+});
+
+document.getElementById("addWin").onclick = () => {
+  const label = prompt("Nombre de la fecha (ej: Finalissima, Gira por Asia 2028):");
+  if (!label || !label.trim()) return;
+  const yIn = prompt("¿De qué año?", "2027"); const y = parseInt(yIn,10);
+  if (!(y>=2026 && y<=2030)) { toast("Poné un año entre 2026 y 2030"); return; }
+  const id = "x"+Date.now();
+  const w = {id, y, m: 12, label: label.trim(), n:1, picks:[], actual:[], custom:true};
+  const idx = state.windows.findIndex(x => x.y > y);
+  idx === -1 ? state.windows.push(w) : state.windows.splice(idx, 0, w);
+  openSet.add(id); save(); render();
+  document.querySelector(`details[data-w="${state.windows.indexOf(w)}"]`)?.scrollIntoView({behavior:"smooth",block:"center"});
+};
+document.getElementById("reset").onclick = () => {
+  if (!confirm("¿Borrar todos tus pronósticos y resultados? No hay vuelta atrás.")) return;
+  state = { windows: defaultWindows() }; openSet.clear(); save(); render();
+};
+document.getElementById("share").onclick = async () => {
+  const lines = ["🇦🇷 Mi prode de amistosos hasta 2030", `Puntos: ${document.getElementById("sPts").textContent}`, ""];
+  state.windows.forEach(w => {
+    const p = w.picks.slice(0,w.n).filter(Boolean);
+    if (p.length) lines.push(`${w.label}: ${p.map(x => `${flagOf(x)} ${x}`).join(" / ")}`);
+  });
+  const txt = lines.join("\n");
+  try { await navigator.clipboard.writeText(txt); toast("Copiado. Pegalo en el grupo."); }
+  catch(e){
+    const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); toast("Copiado. Pegalo en el grupo."); } catch(_) { toast("No se pudo copiar"); }
+    ta.remove();
+  }
+};
+let tt; function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove("on"),2200); }
+
+render();
+</script>
+</body>
+</html>
